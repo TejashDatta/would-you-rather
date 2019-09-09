@@ -1,12 +1,12 @@
 <template>
   <v-card class="pt-1 px-3">
-    <v-radio-group v-if="!voted" label="Would you rather...">
-      <v-radio
-        v-for="(option, index) in poll.options"
-        :key="index"
-        :label="option"
-        @click="vote(index)"
-      />
+    <v-radio-group
+      v-if="!voted"
+      v-model="selected"
+      @change="vote(selected)"
+      label="Would you rather..."
+    >
+      <v-radio v-for="(option, index) in poll.options" :key="index" :label="option" :value="index" />
     </v-radio-group>
 
     <div class="mt-2 poll-results" v-else>
@@ -79,7 +79,8 @@ export default {
   props: ["poll"],
   data() {
     return {
-      dialog: false
+      dialog: false,
+      selected: null
     };
   },
   methods: {
